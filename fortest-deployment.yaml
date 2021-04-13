@@ -18,7 +18,7 @@ spec:
         - name: webdeplyservicesecrettest
       containers:
         - name: fortest
-          image: lamnguyen2020/testb2c:latest         
+          image: lamnguyen2020/testb2c
           ports:
             - containerPort: 802
           
