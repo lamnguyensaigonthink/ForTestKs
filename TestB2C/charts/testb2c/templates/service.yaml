@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "testb2c.fullname" . }}
+  labels:
+    app: {{ template "testb2c.name" . }}
+    chart: {{ template "testb2c.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "testb2c.name" . }}
+    release: {{ .Release.Name }}
