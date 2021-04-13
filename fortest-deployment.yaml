@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fortest-deployment
+  labels:
+    app: fortest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fortest
+  template:
+    metadata:
+      labels:
+        app: fortest
+    spec:
+      imagePullSecrets:
+        - name: webdeplyservicesecrettest
+      containers:
+        - name: fortest
+          image: lamnguyen2020:testb2c          
+          ports:
+            - containerPort: 802
+          
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fortest-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: fortest
+  ports:
+    - protocol: TCP
+      port: 8005
+      targetPort: 802
+      nodePort: 30001
+  
